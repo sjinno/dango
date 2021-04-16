@@ -7,6 +7,17 @@
     <title>Dango Shop</title>
 </head>
 <body>
+    {% include "navbar.html" %}
     <h1>Hello, world! Have some dango.</h1>
+
+    <div style="background-color: lightblue; height: 500px;">
+        {% block content %}
+      
+        {% endblock content %}
+
+    </div>
+
+
+    {% include "footer.html" %}
 </body>
 </html>
