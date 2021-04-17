@@ -14,6 +14,9 @@ SECRET_KEY = env('SECRET_KEY')
 ALLOWED_HOSTS = ['*']
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
+NOTIFY_EMAIL = env('NOTIFY_EMAIL')
+
 # Application definition
 
 INSTALLED_APPS = [
