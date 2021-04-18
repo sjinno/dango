@@ -4,7 +4,10 @@
     <div class="flex flex-wrap -m-4">
       {% for product in object_list %}
       <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
-        <a class="block relative h-48 rounded overflow-hidden">
+        <a
+          class="block relative h-48 rounded overflow-hidden"
+          href="{{ product.get_absolute_url }}"
+        >
           <img
             alt="ecommerce"
             class="object-cover object-center w-full h-full block"
@@ -18,7 +21,7 @@
           <h2 class="text-gray-900 title-font text-lg font-medium">
             {{ product.title }}
           </h2>
-          <p class="mt-1">{{ product.price }}</p>
+          <p class="mt-1">${{ product.price }}</p>
         </div>
       </div>
       {% endfor %}
