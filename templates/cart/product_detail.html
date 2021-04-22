@@ -1,4 +1,6 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %} 
+{% load crispy_forms_tags %}
+{% block content %}
 <section class="text-gray-600 body-font overflow-hidden">
   <div class="container px-5 py-24 mx-auto">
     <div class="lg:w-4/5 mx-auto flex flex-wrap">
@@ -140,38 +142,11 @@
         <div
           class="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5"
         >
+        <form method="POST">{% csrf_token %}
           <div class="flex ml-6 items-center">
             <span class="mr-3">Quantity</span>
             <div class="relative">
-              <select
-                class="rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 text-base pl-3 pr-10"
-              >
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-                <option>6</option>
-                <option>7</option>
-                <option>8</option>
-                <option>9</option>
-                <option>10</option>
-              </select>
-              <span
-                class="absolute right-0 top-0 h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center"
-              >
-                <svg
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  class="w-4 h-4"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M6 9l6 6 6-6"></path>
-                </svg>
-              </span>
+                {{ form.quantity }}
             </div>
           </div>
         </div>
@@ -179,12 +154,13 @@
           <span class="title-font font-medium text-2xl text-gray-900"
             >${{ product.price }}</span
           >
-          <button
+            <button
             class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
           >
             Add to cart
           </button>
         </div>
+      </form>
       </div>
     </div>
   </div>
