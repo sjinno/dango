@@ -46,20 +46,22 @@ class Product(models.Model):
         return reverse('cart:product-detail', kwargs={'slug': self.slug})
 
 
+COUNT_CHOICES = [(count, count) for count in range(1, 11)]
+
+
 class OrderItem(models.Model):
     order = models.ForeignKey(
         'Order', related_name='items', on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    quantity = models.PositiveIntegerField(default=1)
+    quantity = models.PositiveIntegerField(choices=COUNT_CHOICES, default=1)
 
     billing_address = models.ForeignKey(
         Address, related_name='billing_address', blank=True, null=True, on_delete=models.SET_NULL)
     shipping_address = models.ForeignKey(
         Address, related_name='shipping_address', blank=True, null=True, on_delete=models.SET_NULL)
 
-
-def __str__(self):
-    return f'{self.quantity} x {self.product.title}'
+    def __str__(self):
+        return f'{self.quantity} x {self.product.title}'
 
 
 class Order(models.Model):
@@ -96,10 +98,8 @@ class Payment(models.Model):
     def reference_number(self):
         return f'PAYMENTー{self.order}ー{self.pk}'
 
+    def pre_save_product_rceiver(sender, instance, *args, **kwargs):
+        if not instance.slug:
+            instance.slug = slugify(instance.title)
 
-def pre_save_product_rceiver(sender, instance, *args, **kwargs):
-    if not instance.slug:
-        instance.slug = slugify(instance.title)
-
-
-pre_save.connect(pre_save_product_rceiver, sender=Product)
+    pre_save.connect(pre_save_product_rceiver, sender=Product)
