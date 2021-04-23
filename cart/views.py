@@ -28,7 +28,7 @@ class ProductDetailView(generic.FormView):
         item_filter = order.items.filter(product=product)
         if item_filter.exists():
             item = item_filter.first()
-            item.quantity = int(form.cleaned_data['quantity'])
+            item.quantity += int(form.cleaned_data['quantity'])
             item.save()
         else:
             new_item = form.save(commit=False)
