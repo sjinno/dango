@@ -33,7 +33,7 @@ class Product(models.Model):
     title = models.CharField(max_length=150)
     slug = models.SlugField(unique=True)
     image = models.ImageField(upload_to='product_images')
-    price = models.FloatField(default=0.0)
+    price = models.IntegerField(default=0)
     description = models.TextField()
     created = models.DateTimeField(auto_now=True)
     updated = models.DateTimeField(auto_now=True)
@@ -44,6 +44,9 @@ class Product(models.Model):
 
     def get_absolute_url(self):
         return reverse('cart:product-detail', kwargs={'slug': self.slug})
+
+    def get_price(self):
+        return '{:.2f}'.format(self.price / 100)
 
 
 COUNT_CHOICES = [(count, count) for count in range(1, 11)]
@@ -62,6 +65,13 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return f'{self.quantity} x {self.product.title}'
+
+    def get_raw_total_item_price(self):
+        return self.quantity * self.product.price
+
+    def get_total_item_price(self):
+        price = self.get_raw_total_item_price()
+        return '{:.2f}'.format(price / 100)
 
 
 class Order(models.Model):

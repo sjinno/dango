@@ -2,7 +2,7 @@
 {% block content %}
 <div class="h-screen bg-gray-300">
     <div class="py-12">
-        <div class="max-w-md mx-auto bg-gray-100 shadow-lg rounded-lg md:max-w-5xl">
+        <div class="max-w-md mx-auto bg-gray-100 shadow-lg rounded-lg md:max-w-2xl">
             <div class="md:flex ">
                 <div class="w-full p-4 px-5 py-5">
                     <!-- <div class="md:grid md:grid-cols-3 gap-2 "> -->
@@ -11,11 +11,11 @@
                             {% for item in order.items.all %}
                             <div class="flex justify-between items-center mt-6 pt-6">
                                 <div class="flex items-center"> <img src="{{ item.product.image.url }}" width="60" class="rounded-full ">
-                                    <div class="flex flex-col ml-3"> <span class="md:text-md font-medium">{{ item.product.title }}</span> <span class="text-xs font-light text-gray-400">{{ item.product.description }}</span> </div>
+                                    <div class="flex flex-col ml-3"> <span class="md:text-md font-medium">{{ item.product.title }}</span> <span class="text-xs font-light">${{ item.product.get_price }}</span> </div>
                                 </div>
                                 <div class="flex justify-center items-center">
                                     <div class="pr-8 flex "> <span class="font-semibold">-</span> <input type="text" class="focus:outline-none bg-gray-100 border h-6 w-8 rounded text-sm px-2 mx-2" value="{{ item.quantity }}"> <span class="font-semibold">+</span> </div>
-                                    <div class="pr-8 "> <span class="text-xs font-medium">{{ item.product.price }}</span> </div>
+                                    <div class="pr-8 "> <span class="text-xs font-medium">${{ item.get_total_item_price }}</span> </div>
                                     <div> <i class="fa fa-close text-xs font-medium"></i> </div>
                                 </div>
                             </div>
