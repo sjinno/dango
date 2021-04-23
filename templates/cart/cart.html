@@ -14,11 +14,14 @@
                                     <div class="flex flex-col ml-3"> <span class="md:text-md font-medium">{{ item.product.title }}</span> <span class="text-xs font-light">${{ item.product.get_price }}</span> </div>
                                 </div>
                                 <div class="flex justify-center items-center">
-                                    <div class="pr-8 flex "> <span class="font-semibold">-</span> <input type="text" class="focus:outline-none bg-gray-100 border h-6 w-8 rounded text-sm px-2 mx-2" value="{{ item.quantity }}"> <span class="font-semibold">+</span> </div>
+                                    <div class="pr-8 flex "> <span class="font-semibold"><a href="{% url 'cart:decrease-quantity' item.id %}">-</a></span> <input type="text" class="focus:outline-none bg-gray-100 border h-6 w-8 rounded text-sm px-2 mx-2" value="{{ item.quantity }}"> <span class="font-semibold"><a href="{% url 'cart:increase-quantity' item.id %}">+</a></span> </div>
                                     <div class="pr-8 "> <span class="text-xs font-medium">${{ item.get_total_item_price }}</span> </div>
-                                    <div> <i class="fa fa-close text-xs font-medium"></i> </div>
+                                    <a href="{% url 'cart:remove-item' item.id %}" class="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-sm">Remove</a>
                                 </div>
                             </div>
+                            {% empty %}
+                            <br>
+                            There are no items in your cart. <a class="text-indigo-500" href="{% url 'cart:product-list' %}">Continue shopping.</a>
                             {% endfor %}
                         </div>
                         <!-- <div class=" p-5 bg-gray-800 rounded overflow-visible"> <span class="text-xl font-medium text-gray-100 block pb-3">Card Details</span> <span class="text-xs text-gray-400 ">Card Type</span>
