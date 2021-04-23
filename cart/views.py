@@ -19,7 +19,7 @@ class ProductDetailView(generic.FormView):
         return get_object_or_404(Product, slug=self.kwargs['slug'])
 
     def get_success_url(self):
-        return reverse('cart:summary')
+        return reverse('cart:product-list')
 
     def form_valid(self, form):
         order = get_or_set_order_session(self.request)
