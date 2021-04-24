@@ -1,53 +1,122 @@
-{% extends "base.html" %}
-{% block content %}
+{% extends "base.html" %} {% block content %}
 <div class="h-screen bg-gray-300">
-    <div class="py-12">
-        <div class="max-w-md mx-auto bg-gray-100 shadow-lg rounded-lg md:max-w-2xl">
-            <div class="md:flex">
-                <div class="w-full p-4 px-5 py-5">
-                    <div class="col-span-2 p-5">
-                        <h1 class="text-xl font-medium ">Shopping Cart</h1>
-                        {% for item in order.items.all %}
-                        <div class="flex flex-wrap justify-between items-center mt-6 pt-6">
-                            <div class="flex items-center"> <img src="{{ item.product.image.url }}" width="60" class="rounded-full ">
-                                <div class="flex flex-col ml-3"> <span class="md:text-md font-medium">{{ item.product.title }}</span> <span class="text-xs font-light">${{ item.product.get_price }}</span> </div>
-                            </div>
-                            <div class="flex justify-center items-center">
-                                <div class="pr-8 flex"> <span class="font-semibold"><a href="{% url 'cart:decrease-quantity' item.id %}">-</a></span> <input type="text" class="focus:outline-none bg-gray-100 border h-6 w-8 rounded text-sm px-2 mx-2" value="{{ item.quantity }}"> <span class="font-semibold"><a href="{% url 'cart:increase-quantity' item.id %}">+</a></span> </div>
-                                <div class="pr-8"> <span class="text-xs font-medium">${{ item.get_total_item_price }}</span> </div>
-                                <div><a href="{% url 'cart:remove-item' item.id %}" class="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-sm">Remove</a></div>
-                            </div>
-                        </div>
-                        {% empty %}
-                        <br>
-                        There are no items in your cart. <a class="text-indigo-500" href="{% url 'cart:product-list' %}">Continue shopping.</a>
-                        {% endfor %}
-                        {% if order.items.count > 0 %}
-                        <br>
-                        <hr>
-                        <br>
-                        <div class="grid grid-cols-6 gap-4">
-                            <div class="col-start-1 col-end-4 text-center">
-                                <a href="{% url 'cart:product-list' %}" type="button" class="inline-flex border border-indigo-600 text-indigo-600 hover:bg-indigo-600 hover:text-gray-200 rounded px-4 py-2">Continue shopping</a>
-                            </div>
-                            <div class="col-start-4 col-end-7 text-right font-bold text-lg">
-                                Cart totals
-                                <hr>
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-8 mb-2">
-                            <div class="col-start-5 col-end-7 text-right font-semibold">Subtotal</div>
-                            <div class="col-start-7 col-end-9 text-right">${{ order.get_subtotal }}</div>
-                        </div>
-                        <div class="grid grid-cols-8">
-                            <div class="col-start-5 col-end-7 text-right font-semibold">Total</div>
-                            <div class="col-start-7 col-end-9 text-right">${{ order.get_total }}</div>
-                        </div>
-                        {% endif %}
-                    </div>
+  <div class="py-12">
+    <div class="max-w-md mx-auto bg-gray-100 shadow-lg rounded-lg md:max-w-2xl">
+      <div class="md:flex">
+        <div class="w-full p-4 px-5 py-5">
+          <div class="col-span-2 p-5">
+            <h1 class="text-xl font-medium">Shopping Cart</h1>
+            {% for item in order.items.all %}
+            <div class="flex flex-wrap justify-between items-center mt-6 pt-6">
+              <div class="flex items-center">
+                <img
+                  src="{{ item.product.image.url }}"
+                  width="60"
+                  class="rounded-full"
+                />
+                <div class="flex flex-col ml-3">
+                  <span class="md:text-md font-medium"
+                    >{{ item.product.title }}</span
+                  >
+                  <span class="text-xs font-light"
+                    >${{ item.product.get_price }}</span
+                  >
                 </div>
+              </div>
+              <div class="flex justify-center items-center">
+                <div class="pr-8 flex">
+                  <span class="font-semibold"
+                    ><a href="{% url 'cart:decrease-quantity' item.id %}"
+                      >-</a
+                    ></span
+                  >
+                  <input
+                    type="text"
+                    class="focus:outline-none bg-gray-100 border h-6 w-8 rounded text-sm px-2 mx-2"
+                    value="{{ item.quantity }}"
+                  />
+                  <span class="font-semibold"
+                    ><a href="{% url 'cart:increase-quantity' item.id %}"
+                      >+</a
+                    ></span
+                  >
+                </div>
+                <div class="pr-8">
+                  <span class="text-xs font-medium"
+                    >${{ item.get_total_item_price }}</span
+                  >
+                </div>
+                <div>
+                  <a
+                    href="{% url 'cart:remove-item' item.id %}"
+                    class="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-sm"
+                    >Remove</a
+                  >
+                </div>
+              </div>
             </div>
+            {% empty %}
+            <br />
+            There are no items in your cart.
+            <a class="text-indigo-500" href="{% url 'cart:product-list' %}"
+              >Continue shopping.</a
+            >
+            {% endfor %} {% if order.items.count > 0 %}
+            <br />
+            <hr />
+            <br />
+            <div class="flex flex-wrap-reverse grid md:grid-cols-6 gap-4">
+              <div class="md:col-start-1 md:col-end-4 text-center">
+                <a
+                  href="{% url 'cart:product-list' %}"
+                  type="button"
+                  class="md:inline-flex border border-indigo-600 text-indigo-600 hover:bg-indigo-600 hover:text-gray-200 rounded px-4 py-2"
+                  >Continue shopping</a
+                >
+              </div>
+              <div
+                class="md:col-start-4 md:col-end-7 md:mt-0 mt-4 md:text-right text-center font-bold text-lg"
+              >
+                Cart totals
+                <hr />
+                <div class="grid grid-cols-6 mt-4 mb-2 md:px-0 px-8">
+                  <div
+                    class="md:col-start-1 md:col-end-4 col-start-1 col-end-3 text-right font-semibold"
+                  >
+                    Subtotal
+                  </div>
+                  <div class="col-start-4 col-end-7 text-right">
+                    ${{ order.get_subtotal }}
+                  </div>
+                </div>
+                <div class="grid grid-cols-6 md:px-0 px-8">
+                  <div
+                    class="md:col-start-1 md:col-end-4 col-start-1 col-end-3 text-right font-semibold"
+                  >
+                    Total
+                  </div>
+                  <div class="col-start-4 col-end-7 text-right">
+                    ${{ order.get_total }}
+                  </div>
+                </div>
+                <div
+                  class="md:col-start-1 md:col-end-7 mt-4 text-center border border-indigo-500 rounded bg-indigo-500 text-gray-200 hover:bg-indigo-600"
+                >
+                  <a
+                    href="{% url 'cart:product-list' %}"
+                    type="button"
+                    class="md:inline-flex font-normal px-4 py-2"
+                    >Checkout</a
+                  >
+                </div>
+              </div>
+            </div>
+
+            {% endif %}
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
 {% endblock content %}
