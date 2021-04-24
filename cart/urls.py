@@ -14,4 +14,5 @@ urlpatterns = [
     path('decrease-quantity/<pk>/',
          views.DecreaseQuantityView.as_view(), name='decrease-quantity'),
     path('remove-item/<pk>/', views.RemoveFromCartView.as_view(), name='remove-item'),
+    path('checkout/', views.CheckoutView.as_view(), name='checkout'),
 ]

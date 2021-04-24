@@ -1,13 +1,13 @@
 {% extends "base.html" %} {% block content %}
 <div class="h-screen bg-gray-300">
   <div class="py-12">
-    <div class="max-w-md mx-auto bg-gray-100 shadow-lg rounded-lg md:max-w-2xl">
+    <div class="mx-auto bg-gray-100 shadow-lg rounded-lg md:max-w-2xl">
       <div class="md:flex">
         <div class="w-full p-4 px-5 py-5">
           <div class="col-span-2 p-5">
-            <h1 class="text-xl font-medium">Shopping Cart</h1>
+            <h1 class="text-xl font-medium mb-6">Shopping Cart</h1>
             {% for item in order.items.all %}
-            <div class="flex flex-wrap justify-between items-center mt-6 pt-6">
+            <div class="flex flex-wrap justify-between items-center my-3 py-3">
               <div class="flex items-center">
                 <img
                   src="{{ item.product.image.url }}"
@@ -103,7 +103,7 @@
                   class="md:col-start-1 md:col-end-7 mt-4 text-center border border-indigo-500 rounded bg-indigo-500 text-gray-200 hover:bg-indigo-600"
                 >
                   <a
-                    href="{% url 'cart:product-list' %}"
+                    href="{% url 'cart:checkout' %}"
                     type="button"
                     class="md:inline-flex font-normal px-4 py-2"
                     >Checkout</a
@@ -111,7 +111,6 @@
                 </div>
               </div>
             </div>
-
             {% endif %}
           </div>
         </div>
