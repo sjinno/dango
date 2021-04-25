@@ -58,11 +58,6 @@ class OrderItem(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(choices=COUNT_CHOICES, default=1)
 
-    billing_address = models.ForeignKey(
-        Address, related_name='billing_address', blank=True, null=True, on_delete=models.SET_NULL)
-    shipping_address = models.ForeignKey(
-        Address, related_name='shipping_address', blank=True, null=True, on_delete=models.SET_NULL)
-
     def __str__(self):
         return f'{self.quantity} x {self.product.title}'
 
@@ -80,6 +75,11 @@ class Order(models.Model):
     start_date = models.DateTimeField(auto_now=True)
     ordered_date = models.DateTimeField(blank=True, null=True)
     ordered = models.BooleanField(default=False)
+
+    billing_address = models.ForeignKey(
+        Address, related_name='billing_address', blank=True, null=True, on_delete=models.SET_NULL)
+    shipping_address = models.ForeignKey(
+        Address, related_name='shipping_address', blank=True, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return self.reference_number

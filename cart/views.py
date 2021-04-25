@@ -122,7 +122,6 @@ class CheckoutView(generic.FormView):
             order.billing_address = address
 
         order.save()
-
         messages.info(
             self.request, 'You have successfully added your address.')
         return super(CheckoutView, self).form_valid(form)
