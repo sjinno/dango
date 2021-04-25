@@ -1,82 +1,94 @@
-{% extends "base.html" %} 
-{% load crispy_forms_tags %}
-{% block content %}
+{% extends "base.html" %} {% load crispy_forms_tags %} {% block content %} 
 {% if not request.user.is_authenticated %}
 <section class="text-gray-600 body-font">
-    <div class="container px-5 py-24 mx-auto">
-      <div class="flex flex-col text-center w-full mb-12">
-        <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">You are almost done!</h1>
-        <p class="lg:w-2/3 mx-auto leading-relaxed text-base">You are nearly finished with your order. To finalize your order, please <a>log in</a> or <a>sign up</a>.
-        </p>
-      </div>
-      <div class="flex lg:w-2/3 w-full sm:flex-row flex-col mx-auto px-8 sm:space-x-4 sm:space-y-0 space-y-4 sm:px-0 items-center sm:items-end">
-        <div class="relative flex-grow w-full">
-          <label for="full-name" class="leading-7 text-sm text-gray-600">Full Name</label>
-          <input type="text" id="full-name" name="full-name" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-transparent focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-        </div>
-        <div class="relative flex-grow w-full">
-          <label for="email" class="leading-7 text-sm text-gray-600">Email</label>
-          <input type="email" id="email" name="email" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-transparent focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-        </div>
-        <button class="text-white w-1/2 bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Sign up</button>
-      </div>
+  <div class="container px-5 py-24 mx-auto">
+    <div class="flex flex-col text-center w-full mb-12">
+      <h1
+        class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900"
+      >
+        You are almost done!
+      </h1>
+      <p class="lg:w-2/3 mx-auto leading-relaxed text-base">
+        You are nearly finished with your order. To finalize your order, please
+        <a>log in</a> or <a>sign up</a>.
+      </p>
     </div>
-  </section>
+    <div
+      class="flex lg:w-2/3 w-full sm:flex-row flex-col mx-auto px-8 sm:space-x-4 sm:space-y-0 space-y-4 sm:px-0 items-center sm:items-end"
+    >
+      <div class="relative flex-grow w-full">
+        <label for="full-name" class="leading-7 text-sm text-gray-600"
+          >Full Name</label
+        >
+        <input
+          type="text"
+          id="full-name"
+          name="full-name"
+          class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-transparent focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+        />
+      </div>
+      <div class="relative flex-grow w-full">
+        <label for="email" class="leading-7 text-sm text-gray-600">Email</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-transparent focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+        />
+      </div>
+      <button
+        class="text-white w-1/2 bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg"
+      >
+        Sign up
+      </button>
+    </div>
+  </div>
+</section>
 {% else %}
 <section class="text-gray-600 body-font">
-    <div class="container px-5 py-24 mx-auto w-3/4">
-      <!-- <h1 class="text-3xl font-medium title-font text-gray-900 mb-12 text-center">Testimonials</h1> -->
-      <div class="flex flex-wrap -m-4">
-        <div class="p-4 lg:w-1/2 w-full">
-          <div class="h-full bg-gray-100 p-8 rounded">
-           <form  method="POST">
+  <div class="container px-5 py-24 mx-auto w-3/4">
+    <!-- <h1 class="text-3xl font-medium title-font text-gray-900 mb-12 text-center">Testimonials</h1> -->
+    <div class="flex flex-wrap -m-4">
+      <div class="p-4 lg:w-1/2 w-full">
+        <div class="h-full bg-gray-100 p-8 rounded">
+          <form method="POST">
             {% csrf_token %}
             <h2 class="text-2xl font-bold text-center">Billing Details</h2>
             {{ form|crispy }}
-            <div class="text-center mt-6 border border-indigo-600 text-indigo-600 hover:bg-indigo-600 hover:text-gray-200 rounded px-4 py-2">
-                <a
-                  href="{% url 'cart:product-list' %}"
-                  type="button"
-                  class=""
-                  >Proceed to payment</a
-                >
+            <div
+              class="text-center mt-6 border border-indigo-600 text-indigo-600 hover:bg-indigo-600 hover:text-gray-200 rounded px-4 py-2"
+            >
+              <button type="submit">Proceed to payment</button>
             </div>
-           </form>
-          </div>
+          </form>
         </div>
-        <div class="p-4 lg:w-1/2 w-full">
-          <div class="h-full bg-gray-100 p-8 rounded">
-            <h2 class="text-2xl font-bold text-center">Your Order</h2>
-            <div class="grid grid-cols-6 mt-6 sm:px-6">
-                {% for item in order.items.all %}
-                <div class="col-start-1 col-end-2">
-                    <strong>x</strong> {{ item.quantity }}
-                </div>
-                <div class="col-start-2 col-end-5">
-                    {{ item.product.title }}
-                </div>
-                <div class="col-start-5 col-end-7 text-right">
-                    ${{ item.get_total_item_price }}
-                </div>
-                {% endfor %}
-                <div class="border-t col-start-1 col-end-7 mt-4 mb-2"></div>
-                <div class="col-start-2 col-end-5">
-                    Subtotal
-                </div>
-                <div class="col-start-5 col-end-7 text-right">
-                    ${{ order.get_subtotal }}
-                </div>
-                <div class="col-start-2 col-end-5 font-bold">
-                    Total
-                </div>
-                <div class="col-start-5 col-end-7 font-bold text-right">
-                    ${{ order.get_total }}
-                </div>
+      </div>
+      <div class="p-4 lg:w-1/2 w-full">
+        <div class="h-full bg-gray-100 p-8 rounded">
+          <h2 class="text-2xl font-bold text-center">Your Order</h2>
+          <div class="grid grid-cols-6 mt-6 sm:px-6">
+            {% for item in order.items.all %}
+            <div class="col-start-1 col-end-2">
+              <strong>x</strong> {{ item.quantity }}
+            </div>
+            <div class="col-start-2 col-end-5">{{ item.product.title }}</div>
+            <div class="col-start-5 col-end-7 text-right">
+              ${{ item.get_total_item_price }}
+            </div>
+            {% endfor %}
+            <div class="border-t col-start-1 col-end-7 mt-4 mb-2"></div>
+            <div class="col-start-2 col-end-5">Subtotal</div>
+            <div class="col-start-5 col-end-7 text-right">
+              ${{ order.get_subtotal }}
+            </div>
+            <div class="col-start-2 col-end-5 font-bold">Total</div>
+            <div class="col-start-5 col-end-7 font-bold text-right">
+              ${{ order.get_total }}
             </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
-{% endif %}
-{% endblock content %}
+  </div>
+</section>
+{% endif %} {% endblock content %}

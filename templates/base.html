@@ -1,15 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
     <title>Dango Shop</title>
-</head>
-<body>
-    {% include "header.html" %}
-    {% block content %}{% endblock content %}
+  </head>
+  <body>
+    {% include "header.html" %} {% if messages %} {% for message in messages %}
+    <p
+      class="sm:text-3xl text-2xl font-medium title-font"
+      style="background-color: lightblue; height: 42px; text-align: center"
+    >
+      {{ message }}
+    </p>
+    {% endfor %} {% endif %} {% block content %}{% endblock content %} 
     {% include "footer.html" %}
-</body>
+  </body>
 </html>
