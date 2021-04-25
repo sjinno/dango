@@ -42,20 +42,21 @@ class AddreessForm(forms.Form):
         user_id = kwargs.pop('user_id')
         super().__init__(*args, **kwargs)
 
-        user = User.objects.get(id=user_id)
+        if user_id is not None:
+            user = User.objects.get(id=user_id)
 
-        shipping_address_queryset = Address.objects.filter(
-            user=user,
-            address_type='S'
-        )
+            shipping_address_queryset = Address.objects.filter(
+                user=user,
+                address_type='S'
+            )
 
-        billing_address_queryset = Address.objects.filter(
-            user=user,
-            address_type='B'
-        )
+            billing_address_queryset = Address.objects.filter(
+                user=user,
+                address_type='B'
+            )
 
-        self.fields['selected_shipping_address'].queryset = shipping_address_queryset
-        self.fields['selected_billing_address'].queryset = billing_address_queryset
+            self.fields['selected_shipping_address'].queryset = shipping_address_queryset
+            self.fields['selected_billing_address'].queryset = billing_address_queryset
 
     def clean(self):
         data = self.cleaned_data
