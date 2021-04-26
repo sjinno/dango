@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="bg-gray-300 text-gray-600 body-font">
+    <div class="container px-5 py-24 mx-auto flex flex-wrap items-center">
+        <div class="lg:w-2/6 md:w-1/2 bg-gray-100 rounded-lg p-8 flex flex-col md:mx-auto w-full mt-10 md:mt-0">
+            <div id="paypal-button-container"></div>
+        </div>
+    </div>
+</section>
+{% endblock content %}
+{% block scripts %}
+    <script src="https://www.paypal.com/sdk/js?client-id={{ PAYPAL_CLIENT_ID }}"></script>
+    <script>
+        paypal.Buttons({
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                    amount: {
+                        value: '{{ order.get_total }}'
+                    }
+                    }]
+                });
+            },
+            onApprove: function(data, actions) {
+                // This function captures the funds from the transaction.
+                return actions.order.capture().then(function(details) {
+                    // This function shows a transaction success message to your buyer.
+                    setTimeout(function() {
+                        window.location.replace('{{ CALLBACK_URL }}')
+                    }, 3000);
+                });
+            }
+        }).render('#paypal-button-container');
+    </script>
+{% endblock scripts %}

@@ -116,6 +116,9 @@ STATIC_ROOT = BASE_DIR / 'static_root'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media_root'
 
+PAYPAL_CLIENT_ID = env('PAYPAL_SANDBOX_CLIENT_ID')
+PAYPAL_SECRET_KEY = env('PAYPAL_SANDBOX_SECRET_KEY')
+
 
 if DEBUG is False:
     SESSION_COOKIE_SECURE = True
@@ -140,3 +143,6 @@ if DEBUG is False:
             'PORT': ''
         }
     }
+
+    PAYPAL_CLIENT_ID = env('PAYPAL_LIVE_CLIENT_ID')
+    PAYPAL_SECRET_KEY = env('PAYPAL_LIVE_SECRET_KEY')
