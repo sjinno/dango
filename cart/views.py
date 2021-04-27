@@ -5,9 +5,10 @@ from django.shortcuts import get_object_or_404, reverse, redirect
 from django.views import generic
 
 from .forms import AddToCartForm, AddreessForm
-from .models import Product, OrderItem, Address
+from .models import Product, OrderItem, Address, Payment
 from .utils import get_or_set_order_session
 
+import datetime
 import json
 
 
@@ -155,8 +156,19 @@ class PaymentView(generic.TemplateView):
 
 class ConfirmOrderView(generic.View):
     def post(self, request, *args, **kwargs):
+        order = get_or_set_order_session(request)
         body = json.loads(request.body)
         print(body)
+        payment = Payment.objects.create(
+            order=order,
+            successful=True,
+            raw_response=json.dumps(body),
+            amount=float(body['purchase_units'][0]['amount']['value']),
+            payment_method='PayPal',
+        )
+        order.ordered = True
+        order.ordered_date = datetime.date.today()
+        order.save()
         return JsonResponse({'data': 'Success'})
 
 
