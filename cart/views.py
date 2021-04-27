@@ -1,11 +1,14 @@
 from django.conf import settings
 from django.contrib import messages
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, reverse, redirect
 from django.views import generic
 
 from .forms import AddToCartForm, AddreessForm
 from .models import Product, OrderItem, Address
 from .utils import get_or_set_order_session
+
+import json
 
 
 class ProductListView(generic.ListView):
@@ -145,8 +148,16 @@ class PaymentView(generic.TemplateView):
         context = super(PaymentView, self).get_context_data(**kwargs)
         context['PAYPAL_CLIENT_ID'] = settings.PAYPAL_CLIENT_ID
         context['order'] = get_or_set_order_session(self.request)
-        context['CALLBACK_URL'] = reverse('cart:thank-you')
+        context['CALLBACK_URL'] = self.request.build_absolute_uri(
+            reverse('cart:thank-you'))
         return context
+
+
+class ConfirmOrderView(generic.View):
+    def post(self, request, *args, **kwargs):
+        body = json.loads(request.body)
+        print(body)
+        return JsonResponse({'data': 'Success'})
 
 
 class ThankYouView(generic.TemplateView):
