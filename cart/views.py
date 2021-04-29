@@ -158,7 +158,6 @@ class ConfirmOrderView(generic.View):
     def post(self, request, *args, **kwargs):
         order = get_or_set_order_session(request)
         body = json.loads(request.body)
-        print(body)
         payment = Payment.objects.create(
             order=order,
             successful=True,
