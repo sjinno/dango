@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="bg-gray-300 text-gray-600 body-font">
+    <div class="container px-5 py-24 mx-auto items-center">
+        <div class="lg:w-2/6 md:w-1/2 bg-gray-100 rounded-lg p-8 flex flex-col md:mx-auto w-full mt-10 md:mt-0">
+            <div class="text-center mt-4">
+                <p class="text-gray-600 font-bold">Your Profile</p>
+                <hr class="mt-2 mb-6">
+                <p class="text-sm font-hairline text-gray-600 mt-1">{{ request.user.email }}</p>
+            </div>
+
+            <div class="mt-6">
+                <a href="{% url 'account_logout' %}">
+                    <button class="rounded shadow-md w-full items-center shadow bg-blue-500 px-4 py-2 text-white hover:bg-blue-400">
+                        Log out
+                    </button>
+                </a>
+            </div>
+        </div>
+
+        <div class="lg:w-4/6 md:mt-16 bg-gray-100 rounded-lg p-8 md:mx-auto w-full mt-10 md:mt-0">
+            <div class="text-center mt-4">
+                <p class="text-gray-600 font-bold">Your Orders</p>
+                <hr class="mt-2 mb-6">
+            </div>
+            <table class="table-fixed text-center m-auto">
+                <thead>
+                    <tr>
+                        <th class="w-1/2">Reference No.</th>
+                        <th class="w-1/6">Date</th>
+                        <th class="w-1/6">Amount</th>
+                        <th class="w-1/6">Payment Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                    <tr>
+                        <td class="text-right">#{{ order.reference_number }}</td>
+                        <td class="text-right">{{ order.ordered_date }}</td>
+                        <td class="text-right">{{ order.get_total }}</td>
+                        <td class="text-right">{% if order.ordered %}Paid{% else %}Not paid{% endif %}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" class="text-center">You haven't made any orders.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+          </div>
+    </div>
+</section>
+{% endblock content %}
